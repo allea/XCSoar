@@ -96,10 +96,6 @@ include $(topdir)/build/vali.mk
 include $(topdir)/build/test.mk
 include $(topdir)/build/hot.mk
 
-# Load local-config a second time
-# to set (override) choices for GXX and friends.
--include $(topdir)/build/local-config.mk
-
 ######## output files
 
 ifeq ($(HAVE_POSIX),y)
