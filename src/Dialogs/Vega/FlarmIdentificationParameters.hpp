@@ -29,7 +29,7 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Compiler.h"
 
-static gcc_constexpr_data StaticEnumChoice flarm_aircraft_types[] = {
+static const StaticEnumChoice flarm_aircraft_types[] = {
   { 0, _T("Undefined") },
   { 1, _T("Glider") },
   { 2, _T("Tow plane") },

@@ -29,7 +29,7 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Compiler.h"
 
-static gcc_constexpr_data StaticEnumChoice flarm_user_interfaces[] = {
+static const StaticEnumChoice flarm_user_interfaces[] = {
   { 0, _T("LED+Buzzer") },
   { 1, _T("None") },
   { 2, _T("Buzzer") },

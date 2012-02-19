@@ -29,7 +29,7 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Compiler.h"
 
-static gcc_constexpr_data StaticEnumChoice needle_gauge_types[] = {
+static const StaticEnumChoice needle_gauge_types[] = {
   { 0, _T("None") },
   { 1, _T("LX") },
   { 2, _T("Analog") },

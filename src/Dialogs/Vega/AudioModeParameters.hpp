@@ -30,14 +30,14 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Compiler.h"
 
-static gcc_constexpr_data StaticEnumChoice tone_climb_comparisons[] = {
+static const StaticEnumChoice tone_climb_comparisons[] = {
   { 0, N_("None") },
   { 1, _T("Gross>MacCready") },
   { 2, _T("Gross>Average") },
   { 0 }
 };
 
-static gcc_constexpr_data StaticEnumChoice tone_cruise_lift_detection_types[] = {
+static const StaticEnumChoice tone_cruise_lift_detection_types[] = {
   { 0, N_("Disabled") },
   { 1, _T("Relative>0") },
   { 2, _T("Relative>MacCready/2") },
@@ -48,7 +48,7 @@ static gcc_constexpr_data StaticEnumChoice tone_cruise_lift_detection_types[] = 
   { 0 }
 };
 
-static gcc_constexpr_data StaticEnumChoice time_scales[] = {
+static const StaticEnumChoice time_scales[] = {
   { 0, _T(" 0.0s") },
   { 1, _T(" 0.8s") },
   { 2, _T(" 1.7s") },
@@ -59,7 +59,7 @@ static gcc_constexpr_data StaticEnumChoice time_scales[] = {
   { 0 }
 };
 
-static gcc_constexpr_data StaticEnumChoice filter_time[] = {
+static const StaticEnumChoice filter_time[] = {
   { 0, _T(" 1.0s") },
   { 1, _T(" 1.3s") },
   { 2, _T(" 1.8s") },

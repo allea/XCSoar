@@ -29,14 +29,14 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Compiler.h"
 
-static gcc_constexpr_data StaticEnumChoice tri_state[] = {
+static const StaticEnumChoice tri_state[] = {
   { 0, N_("Off") },
   { 1, N_("On") },
   { 255, N_("Auto") },
   { 0 },
 };
 
-static gcc_constexpr_data StaticEnumChoice baud_rates[] = {
+static const StaticEnumChoice baud_rates[] = {
   { 0, _T("Auto") },
   { 1, _T("4800") },
   { 2, _T("9600") },

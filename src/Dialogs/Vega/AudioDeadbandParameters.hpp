@@ -29,7 +29,7 @@ Copyright_License {
 #include "Language/Language.hpp"
 #include "Compiler.h"
 
-static gcc_constexpr_data StaticEnumChoice deadband_types[] = {
+static const StaticEnumChoice deadband_types[] = {
   { 0, N_("Step") },
   { 1, N_("Ramp") },
   { 0 }
