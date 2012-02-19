@@ -2,6 +2,8 @@ PKG_CONFIG = pkg-config
 
 ifeq ($(TARGET_IS_DARWIN),y)
   PKG_CONFIG += --static
+  # the pkf-config configuration is broken on MacPorts.  We need to set common paths.
+  PKG_CONFIG := PKG_CONFIG_PATH=$$PKG_CONFIG_PATH:/usr/local/lib/pkgconfig:/opt/local/lib/pkgconfig $(PKG_CONFIG)
 endif
 
 # Generates a pkg-config lookup for a library.
