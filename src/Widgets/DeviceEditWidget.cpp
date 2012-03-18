@@ -101,22 +101,36 @@ DetectSerialPorts(DataFieldEnum &df)
   if (dir == NULL)
     return false;
 
-  unsigned sort_start = df.Count();
 
+  char path[64];
   bool found = false;
   struct dirent *ent;
+
+  while ((ent = readdir(dir)) != NULL) {
+    if (memcmp(ent->d_name, "tty.", 4) == 0 || memcmp(ent->d_name, "rfcomm", 6) == 0) {
+      snprintf(path, sizeof(path), "/dev/%s", ent->d_name);
+      if (access(path, R_OK|W_OK) == 0 && access(path, X_OK) < 0) {
+	AddPort(df, DeviceConfig::PortType::SERIAL, path);
+	found = true;
+      }
+    }
+  }
+  closedir(dir);
+
+  unsigned sort_start = df.Count();
+
+  dir = opendir("/dev");
   while ((ent = readdir(dir)) != NULL) {
     /* filter "/dev/tty*" */
     if (memcmp(ent->d_name, "tty", 3) == 0) {
-      /* filter out "/dev/tty0", ... (valid integer after "tty") */
+      /* filter out "/dev/tty0", ... (valid integer or period after "tty") */
       char *endptr;
       strtoul(ent->d_name + 3, &endptr, 10);
       if (*endptr == 0)
-        continue;
+	continue;
     } else if (memcmp(ent->d_name, "rfcomm", 6) != 0)
       continue;
 
-    char path[64];
     snprintf(path, sizeof(path), "/dev/%s", ent->d_name);
     if (access(path, R_OK|W_OK) == 0 && access(path, X_OK) < 0) {
       AddPort(df, DeviceConfig::PortType::SERIAL, path);
