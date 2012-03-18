@@ -21,10 +21,22 @@ Copyright_License {
 }
 */
 
-#ifndef XCSOAR_DEVICE_DRIVER_LX_HPP
-#define XCSOAR_DEVICE_DRIVER_LX_HPP
+#include "Device/Driver/LX.hpp"
+#include "Device/Driver/LX/LXNAVV7/Internal.hpp"
+#include "Profile/DeviceConfig.hpp"
 
-extern const struct DeviceRegister lxDevice;
-extern const struct DeviceRegister lxNavV7Device;
+static Device *
+LXNAVV7CreateOnPort(const DeviceConfig &config, Port &com_port)
+{
+  return new LXNAVV7Device(com_port, config.bulk_baud_rate);
+}
 
-#endif
+const struct DeviceRegister lxNavV7Device = {
+  _T("LXNAV"),
+  _T("LXNAV V7"),
+  DeviceRegister::DECLARE | DeviceRegister::LOGGER |
+  DeviceRegister::PASS_THROUGH |
+  DeviceRegister::BULK_BAUD_RATE |
+  DeviceRegister::RECEIVE_SETTINGS | DeviceRegister::SEND_SETTINGS,
+  LXNAVV7CreateOnPort,
+};

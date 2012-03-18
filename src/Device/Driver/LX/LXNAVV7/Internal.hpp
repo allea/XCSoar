@@ -21,10 +21,33 @@ Copyright_License {
 }
 */
 
-#ifndef XCSOAR_DEVICE_DRIVER_LX_HPP
-#define XCSOAR_DEVICE_DRIVER_LX_HPP
+#ifndef XCSOAR_DEVICE_DRIVER_LXNAVV7_INTERNAL_HPP
+#define XCSOAR_DEVICE_DRIVER_LXNAVV7_INTERNAL_HPP
 
-extern const struct DeviceRegister lxDevice;
-extern const struct DeviceRegister lxNavV7Device;
+#include "../Protocol.hpp"
+#include "Device/Driver/LX/Internal.hpp"
+#include "Device/Driver.hpp"
+#include "Thread/Mutex.hpp"
+
+#include <stdint.h>
+
+class LXNAVV7Device: public LXDevice
+{
+
+public:
+  LXNAVV7Device(Port &_port, unsigned _bulk_baud_rate)
+    :  LXDevice::LXDevice(_port, _bulk_baud_rate)
+  {}
+
+public:
+  virtual bool PutBallast(fixed fraction, fixed overload,
+                          OperationEnvironment &env);
+  virtual bool PutBugs(fixed bugs, OperationEnvironment &env);
+  virtual bool PutMacCready(fixed mc, OperationEnvironment &env);
+  virtual bool PutQNH(const AtmosphericPressure &pres,
+                      OperationEnvironment &env);
+
+  virtual bool EnablePassThrough(OperationEnvironment &env);
+};
 
 #endif

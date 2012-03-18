@@ -21,10 +21,20 @@ Copyright_License {
 }
 */
 
-#ifndef XCSOAR_DEVICE_DRIVER_LX_HPP
-#define XCSOAR_DEVICE_DRIVER_LX_HPP
+#include "Internal.hpp"
+#include "Device/Port/Port.hpp"
+#include "Device/Internal.hpp"
 
-extern const struct DeviceRegister lxDevice;
-extern const struct DeviceRegister lxNavV7Device;
 
-#endif
+/**
+ * Enable pass-through mode on the V7.  
+ */
+
+bool
+LXNAVV7Device::EnablePassThrough(OperationEnvironment &env)
+{
+  return PortWriteNMEA(port, "PLXV0,CONNECTION,W,DIRECT*CS");
+}
+
+
+// EnableNMEA from base class.

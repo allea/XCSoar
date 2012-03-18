@@ -76,6 +76,7 @@ static const struct DeviceRegister *const DeviceRegister[] = {
   &flarm_device,
   &westerboer_vw921_device_driver,
   &flynet_driver,
+  &lxNavV7Device,
   NULL
 };
 

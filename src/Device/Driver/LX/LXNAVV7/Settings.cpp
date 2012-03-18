@@ -21,7 +21,7 @@ Copyright_License {
 }
 */
 
-#include "Device/Driver/LX/Internal.hpp"
+#include "Device/Driver/LX/LXNAVV7/Internal.hpp"
 #include "Device/Port/Port.hpp"
 #include "Device/Internal.hpp"
 #include "Atmosphere/Pressure.hpp"
@@ -29,61 +29,49 @@ Copyright_License {
 #include <cstdio>
 
 bool
-LXDevice::PutBallast(gcc_unused fixed fraction, fixed overload,
+LXNAVV7Device::PutBallast(gcc_unused fixed fraction, fixed overload,
                      OperationEnvironment &env)
 {
   if (!EnableNMEA(env))
     return false;
 
-  // This is a copy of the routine done in LK8000 for LX MiniMap, realized
-  // by Lx developers.
+  char tmp[32];
+  sprintf(tmp, "PLXV0,BAL,W,%.2f*CS", (double)overload);
 
-  char tmp[100];
-  sprintf(tmp, "PFLX2,,%.2f,,,,", (double)overload);
   PortWriteNMEA(port, tmp);
   return true;
 }
 
 bool
-LXDevice::PutBugs(fixed bugs, OperationEnvironment &env)
+LXNAVV7Device::PutBugs(fixed bugs, OperationEnvironment &env)
 {
   if (!EnableNMEA(env))
     return false;
-
-  // This is a copy of the routine done in LK8000 for LX MiniMap, realized
-  // by Lx developers.
-
-  char tmp[100];
-  int transformed_bugs_value = 100 - (int)(bugs*100);
-  sprintf(tmp, "PFLX2,,,%d,,,", transformed_bugs_value);
-  PortWriteNMEA(port, tmp);
-  return true;
-}
-
-bool
-LXDevice::PutMacCready(fixed mac_cready, OperationEnvironment &env)
-{
-  if (!EnableNMEA(env))
-    return false;
-
-  printf("PMC from LX settings... PFLX2,%1.1f,,,,,,\n", (double)mac_cready);
 
   char tmp[32];
-  sprintf(tmp, "PFLX2,%1.1f,,,,,,", (double)mac_cready);
+  int transformed_bugs_value = 100 - (int)(bugs*100);
+  printf("PLXV0,BUGS,W,%d*CS\n", transformed_bugs_value);
+  sprintf(tmp, "PLXV0,BUGS,W,%d*CS", transformed_bugs_value);
   PortWriteNMEA(port, tmp);
   return true;
 }
 
 bool
-LXDevice::PutQNH(const AtmosphericPressure &pres, OperationEnvironment &env)
+LXNAVV7Device::PutMacCready(fixed mac_cready, OperationEnvironment &env)
 {
   if (!EnableNMEA(env))
     return false;
 
-  fixed altitude_offset =
-    pres.StaticPressureToQNHAltitude(AtmosphericPressure::Standard());
-  char buffer[100];
-  sprintf(buffer, "PFLX3,%.2f,,,,,,,,,,,,", (double)altitude_offset / 0.3048);
-  PortWriteNMEA(port, buffer);
+  printf("PLXV0,MC,W,%1.1f*CS\n", (double)mac_cready);
+  char tmp[32];
+  sprintf(tmp, "PLXV0,MC,W,%1.1f*CS", (double)mac_cready);
+  PortWriteNMEA(port, tmp);
   return true;
+}
+
+bool
+LXNAVV7Device::PutQNH(const AtmosphericPressure &pres, OperationEnvironment &env)
+{
+  /* The V7 apparent does not accept an altimeter setting. */
+  return false;
 }

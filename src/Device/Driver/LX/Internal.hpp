@@ -39,6 +39,8 @@ class LXDevice: public AbstractDevice
     COMMAND,
   };
 
+
+protected:
   Port &port;
 
   unsigned bulk_baud_rate;
@@ -48,13 +50,13 @@ class LXDevice: public AbstractDevice
   bool busy;
   unsigned old_baud_rate;
 
+  bool EnableCommandMode(OperationEnvironment &env);
+
+
 public:
   LXDevice(Port &_port, unsigned _bulk_baud_rate)
     :port(_port), bulk_baud_rate(_bulk_baud_rate),
      mode(Mode::UNKNOWN), old_baud_rate(0) {}
-
-protected:
-  bool EnableCommandMode(OperationEnvironment &env);
 
 public:
   virtual void LinkTimeout();
