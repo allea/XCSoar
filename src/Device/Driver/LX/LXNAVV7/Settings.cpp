@@ -36,7 +36,7 @@ LXNAVV7Device::PutBallast(gcc_unused fixed fraction, fixed overload,
     return false;
 
   char tmp[32];
-  sprintf(tmp, "PLXV0,BAL,W,%.2f*CS", (double)overload);
+  sprintf(tmp, "PLXV0,BAL,W,%.2f", (double)overload);
 
   PortWriteNMEA(port, tmp);
   return true;
@@ -49,9 +49,7 @@ LXNAVV7Device::PutBugs(fixed bugs, OperationEnvironment &env)
     return false;
 
   char tmp[32];
-  int transformed_bugs_value = 100 - (int)(bugs*100);
-  printf("PLXV0,BUGS,W,%d*CS\n", transformed_bugs_value);
-  sprintf(tmp, "PLXV0,BUGS,W,%d*CS", transformed_bugs_value);
+  sprintf(tmp, "PLXV0,BUGS,W,%.1f", (1.0-bugs)*100.0);
   PortWriteNMEA(port, tmp);
   return true;
 }
@@ -62,9 +60,9 @@ LXNAVV7Device::PutMacCready(fixed mac_cready, OperationEnvironment &env)
   if (!EnableNMEA(env))
     return false;
 
-  printf("PLXV0,MC,W,%1.1f*CS\n", (double)mac_cready);
+  printf("PLXV0,MC,W,%.1f\n", (double)mac_cready);
   char tmp[32];
-  sprintf(tmp, "PLXV0,MC,W,%1.1f*CS", (double)mac_cready);
+  sprintf(tmp, "PLXV0,MC,W,%.1f", (double)mac_cready);
   PortWriteNMEA(port, tmp);
   return true;
 }
