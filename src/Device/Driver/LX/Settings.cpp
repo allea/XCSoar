@@ -66,8 +66,6 @@ LXDevice::PutMacCready(fixed mac_cready, OperationEnvironment &env)
   if (!EnableNMEA(env))
     return false;
 
-  printf("PMC from LX settings... PFLX2,%1.1f,,,,,,\n", (double)mac_cready);
-
   char tmp[32];
   sprintf(tmp, "PFLX2,%1.1f,,,,,,", (double)mac_cready);
   PortWriteNMEA(port, tmp);
@@ -82,8 +80,8 @@ LXDevice::PutQNH(const AtmosphericPressure &pres, OperationEnvironment &env)
 
   fixed altitude_offset =
     pres.StaticPressureToQNHAltitude(AtmosphericPressure::Standard());
-  char buffer[100];
-  sprintf(buffer, "PFLX3,%.2f,,,,,,,,,,,,", (double)altitude_offset / 0.3048);
-  PortWriteNMEA(port, buffer);
+  char tmp[100];
+  sprintf(tmp, "PFLX3,%.2f,,,,,,,,,,,,", (double)altitude_offset / 0.3048);
+  PortWriteNMEA(port, tmp);
   return true;
 }

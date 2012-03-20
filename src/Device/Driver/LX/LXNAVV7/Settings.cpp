@@ -60,7 +60,6 @@ LXNAVV7Device::PutMacCready(fixed mac_cready, OperationEnvironment &env)
   if (!EnableNMEA(env))
     return false;
 
-  printf("PLXV0,MC,W,%.1f\n", (double)mac_cready);
   char tmp[32];
   sprintf(tmp, "PLXV0,MC,W,%.1f", (double)mac_cready);
   PortWriteNMEA(port, tmp);
@@ -70,6 +69,13 @@ LXNAVV7Device::PutMacCready(fixed mac_cready, OperationEnvironment &env)
 bool
 LXNAVV7Device::PutQNH(const AtmosphericPressure &pres, OperationEnvironment &env)
 {
-  /* The V7 apparent does not accept an altimeter setting. */
-  return false;
+  if (!EnableNMEA(env))
+    return false;
+
+  fixed altitude_offset =
+    pres.StaticPressureToQNHAltitude(AtmosphericPressure::Standard());
+  char tmp[100];
+  sprintf(tmp, "PLXV0,QNH,W,%.2f", (double)altitude_offset / 0.3048);
+  PortWriteNMEA(port, tmp);
+  return true;
 }
