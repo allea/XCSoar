@@ -34,7 +34,6 @@ LXNAVV7CreateOnPort(const DeviceConfig &config, Port &com_port)
 const struct DeviceRegister lxNavV7Device = {
   _T("LXNAV"),
   _T("LXNAV V7"),
-  DeviceRegister::DECLARE | DeviceRegister::LOGGER |
   DeviceRegister::PASS_THROUGH |
   DeviceRegister::BULK_BAUD_RATE |
   DeviceRegister::RECEIVE_SETTINGS | DeviceRegister::SEND_SETTINGS,

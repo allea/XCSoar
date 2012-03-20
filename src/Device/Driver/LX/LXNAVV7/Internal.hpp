@@ -34,6 +34,8 @@ Copyright_License {
 class LXNAVV7Device: public LXDevice
 {
 
+  bool SetBaudRate(gcc_unused OperationEnvironment &env);
+
 public:
   LXNAVV7Device(Port &_port, unsigned _bulk_baud_rate)
     :  LXDevice::LXDevice(_port, _bulk_baud_rate)
@@ -48,6 +50,8 @@ public:
                       OperationEnvironment &env);
 
   virtual bool EnablePassThrough(OperationEnvironment &env);
+  virtual bool EnableNMEA(gcc_unused OperationEnvironment &env);
+
 };
 
 #endif

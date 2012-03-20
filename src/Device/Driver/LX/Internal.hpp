@@ -32,6 +32,9 @@ Copyright_License {
 
 class LXDevice: public AbstractDevice
 {
+
+protected:
+
   enum class Mode : uint8_t {
     UNKNOWN,
     NMEA,
@@ -40,7 +43,6 @@ class LXDevice: public AbstractDevice
   };
 
 
-protected:
   Port &port;
 
   unsigned bulk_baud_rate;
