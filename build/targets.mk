@@ -297,6 +297,7 @@ ifeq ($(TARGET),WINE)
 endif
 
 ifeq ($(TARGET),ANDROID)
+  #TARGET_INCLUDES += -I/Users/dr/opt/android-ndk-r7b/platforms/android-14/arch-arm/usr/include
   TARGET_CPPFLAGS += --sysroot=$(ANDROID_TARGET_ROOT)
   TARGET_CPPFLAGS += -DANDROID
   CXXFLAGS += -D__STDC_VERSION__=199901L
@@ -420,3 +421,4 @@ endif
 ifeq ($(TARGET),ANDROID)
   TARGET_EXEEXT :=
 endif
+

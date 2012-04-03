@@ -20,7 +20,8 @@ ANDROID_BIN = $(TARGET_BIN_DIR)
 ANDROID_JNI = $(TARGET_OUTPUT_DIR)/jni
 
 ifeq ($(HOST_IS_DARWIN),y)
-  ANDROID_SDK ?= $(HOME)/opt/android-sdk-macosx
+  ANDROID_SDK ?= /usr/local/android-sdk-macosx
+  #$(HOME)/opt/android-sdk-macosx
 else
   ANDROID_SDK ?= $(HOME)/opt/android-sdk-linux_x86
 endif
