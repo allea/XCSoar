@@ -65,6 +65,19 @@ if [ ! -e ${LOCAL_AR} ]; then
   fi
 fi
 
+# find sdl.pc
+
+if [[ ! $PKG_CONFIG_PATH ]]; then
+    SDLPATH=`locate sdl.pc`
+    if [[ $SDLPATH ]]; then
+	SDLPATH=`dirname $SDLPATH`
+	PKG_STRING="PKG_PREFIX = PKG_CONFIG_PATH=$SDLPATH:\$(PKG_CONFIG_PATH)"
+    else
+	echo "Could not find sdl.pc.  PKG_CONFIG_PATH not set."
+    fi
+fi
+
+
 # Building for Android 
 
 ANDROID_SDK=${ANDROID_SDK-`locate android-sdk-macosx | head -n1`}
@@ -129,6 +142,8 @@ endif
 ifeq (\$(TARGET),UNIX)
 TARGET_LDFLAGS = -static-libgcc
 endif
+
+$PKG_STRING
 
 # Best local toolchain:
 LOCAL_TCPREFIX = $LOCAL_TCPREFIX

@@ -3,6 +3,7 @@ PKG_CONFIG = pkg-config
 ifeq ($(TARGET_IS_DARWIN),y)
   PKG_CONFIG += --static
 endif
+PKG_CONFIG := $(PKG_PREFIX) $(PKG_CONFIG)
 
 # Generates a pkg-config lookup for a library.
 #
