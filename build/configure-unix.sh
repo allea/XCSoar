@@ -56,6 +56,15 @@ done
 echo "Using ${CXX} as compiler for UNIX targets."
 echo "Using toolchain in ${LOCAL_TCPREFIX} for UNIX targets."
 
+# Find AR
+LOCAL_AR="${LOCAL_TCPREFIX}ar${LOCAL_TCSUFFIX}"
+if [ ! -e ${LOCAL_AR} ]; then
+  LOCAL_AR="${LOCAL_TCPREFIX}ar"
+  if [ ! -e ${LOCAL_AR} ]; then
+    LOCAL_AR=`which ar`
+  fi
+fi
+
 # Building for Android 
 
 ANDROID_SDK=${ANDROID_SDK-`locate android-sdk-macosx | head -n1`}
@@ -124,6 +133,7 @@ endif
 # Best local toolchain:
 LOCAL_TCPREFIX = $LOCAL_TCPREFIX
 LOCAL_TCSUFFIX = $LOCAL_TCSUFFIX
+LOCAL_AR = $LOCAL_AR
 FINISHED
 
 echo "Ready to run make."

@@ -6,7 +6,8 @@ ifeq ($(USE_CCACHE),y)
 endif
 
 EXE := $(findstring .exe,$(MAKE))
-AR = $(TCPREFIX)ar$(EXE)
+AR ?= $(TCPREFIX)ar$(EXE)
+
 CXX = $(TCPREFIX)g++$(TCSUFFIX)$(EXE)
 CC = $(TCPREFIX)gcc$(TCSUFFIX)$(EXE)
 DLLTOOL = $(TCPREFIX)dlltool$(EXE)
