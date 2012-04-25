@@ -152,7 +152,9 @@ ifeq ($(TARGET),UNIX)
   # LOCAL_TCPREFIX is set in local-config.mk if configure was run.
   TCPREFIX := $(LOCAL_TCPREFIX)
   TCSUFFIX := $(LOCAL_TCSUFFIX)
-  AR := $(LOCAL_AR)
+  ifneq ($(LOCAL_AR),)
+    AR := $(LOCAL_AR)
+  endif
   HAVE_POSIX := y
   HAVE_WIN32 := n
   HAVE_MSVCRT := n
